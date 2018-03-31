@@ -1,25 +1,34 @@
-function solveQuadraticEquation() {
-    let a = +prompt('Please enter a:');
-    let b = +prompt('Please enter b:');
-    let c = +prompt('Please enter c:');
+const a = parseFloat(prompt('Please enter a:'));
+const b = parseFloat(prompt('Please enter b:'));
+const c = parseFloat(prompt('Please enter c:'));
 
-    let d = b * b - 4 * a * c;
+let result = solveQuadr(a, b, c);
+document.write(result);
 
-    if (d < 0) {
-        document.write('<h2>There are no solution.</h2>');
+function solveQuadr(a, b, c) {
+    const d = calcDiscr(a, b, c);
+    if (d > 0) {
+        const x1 = calcX1(a, b, d);
+        const x2 = calcX2(a, b, d);
+        return 'x1 = ' + x1 + '<br/>x2 = ' + x2 + '<br/>';
     }
-    else if (d == 0) {
-        let x = (-b) / (2 * a);
-
-        document.write('<h1>Solution for ' + a + '*x*x + ' + b + '*x + ' + c + ' = 0' + '</h1>');
-        document.write('<p>' + 'x = ' + x + '</p>');
+    else if (d === 0) {
+        const x = calcX1(a, b, d);
+        return 'x = ' + x + '<br/>';
     }
-    else {
-        let x1 = (-b + Math.sqrt(d)) / (2 * a);
-        let x2 = (-b - Math.sqrt(d)) / (2 * a);
-
-        document.write('<h1>Solution for ' + a + '*x*x + ' + b + '*x + ' + c + ' = 0' + '</h1>');
-        document.write('<p>' + 'x1 = ' + x1 + '</p>');
-        document.write('<p>' + 'x2 = ' + x2 + '</p>');
+    else if (d < 0) {
+        return 'There are no solution' + '<br/>';
     }
+}
+
+function calcDiscr(a, b, c) {
+    return b ** 2 - 4 * a * c;
+}
+
+function calcX1(a, b, d) {
+    return (-b - Math.sqrt(d)) / (2 * a);
+}
+
+function calcX2(a, b, d) {
+    return (-b + Math.sqrt(d)) / (2 * a);
 }
